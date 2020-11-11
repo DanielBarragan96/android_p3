@@ -10,18 +10,20 @@ abstract class MisNoticiasEvent extends Equatable {
 class CrearNoticiaEvent extends MisNoticiasEvent {
   final String title;
   final String description;
-  final String autor;
-  final String fuente;
+  final String author;
+  final String source;
+  final String imageUrl;
 
   CrearNoticiaEvent({
     @required this.title,
     @required this.description,
-    @required this.autor,
-    @required this.fuente,
+    @required this.author,
+    @required this.source,
+    @required this.imageUrl,
   });
 
   @override
-  List<Object> get props => [title, description, autor, fuente];
+  List<Object> get props => [title, description, author, source, imageUrl];
 }
 
 class LeerMisNoticiasEvent extends MisNoticiasEvent {

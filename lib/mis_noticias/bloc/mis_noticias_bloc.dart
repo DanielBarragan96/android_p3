@@ -25,13 +25,13 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
   ) async* {
     if (event is CrearNoticiaEvent) {
       try {
-        String imageUrl = await _uploadPicture(_choosenImage);
+        // String imageUrl = await _uploadPicture(_choosenImage);
         await _saveNoticia(
           event.title,
           event.description,
-          event.autor,
-          event.fuente,
-          imageUrl,
+          event.author,
+          event.source,
+          event.imageUrl,
         );
         yield MisNoticiasCreadaState();
       } catch (e) {}
@@ -43,8 +43,10 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
       }
     } else if (event is CargarImagenEvent) {
       _choosenImage = await _chooseImage(event.takePictureFromCamera);
-      _uploadPicture(_choosenImage);
       yield ImagenCargadaState(imagen: _choosenImage);
+    } else if (event is SubirImagenEvent) {
+      String urlImagen = await _uploadPicture(event.file);
+      yield SubirNoticiaState(urlImagen: urlImagen);
     }
   }
 
@@ -87,12 +89,12 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
     _noticiasList = misNoticias.docs
         .map(
           (elemento) => Noticia(
-            title: elemento["titulo"],
+            title: elemento["title"],
             description: elemento["description"],
-            author: elemento["autor"],
-            source: elemento["fuente"],
-            urlToImage: elemento["imagen"],
-            publishedAt: elemento["fecha"],
+            author: elemento["author"],
+            source: elemento["source"],
+            urlToImage: elemento["urlToImage"],
+            publishedAt: elemento["publishedAt"],
           ),
         )
         .toList();
@@ -110,10 +112,11 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
     await FirebaseFirestore.instance.collection("noticias").doc().set({
       "title": title,
       "description": description,
-      "autor": autor,
-      "fuente": fuente,
-      "imagen": imageUrl,
-      "fecha": DateTime.now().toString(),
+      "author": autor,
+      "source": fuente,
+      "urlToImage": imageUrl,
+      "publishedAt": DateTime.now().toString(),
     });
+    // FirebaseDatabase.instance.reference().child("MisNoticias");
   }
 }

@@ -24,3 +24,9 @@ class ImagenCargadaState extends MisNoticiasState {
 
   ImagenCargadaState({@required this.imagen});
 }
+
+class SubirNoticiaState extends MisNoticiasState {
+  final String urlImagen;
+
+  SubirNoticiaState({@required this.urlImagen});
+}

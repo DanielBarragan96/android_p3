@@ -37,28 +37,29 @@ class _CrearNoticiaState extends State<CrearNoticia> {
             }
           },
           builder: (context, state) {
-            // if (state is FileUploaded) {
-            //   _url = state.fileUrl;
-            //   _saveData();
-            // }
             if (state is ImagenCargadaState) {
               _choosenImage = state.imagen;
+            } else if (state is SubirNoticiaState) {
+              String title = _titleController.text;
+              String author = _authorController.text;
+              String description = _descriptionController.text;
+              String source = "None";
+
+              widget.misNoticiasBloc.add(
+                CrearNoticiaEvent(
+                  author: author,
+                  description: description,
+                  source: source,
+                  title: title,
+                  imageUrl: state.urlImagen,
+                ),
+              );
             }
             return _createNewsForm();
           },
         ),
       ),
     );
-  }
-
-  void _showSnackbar(BuildContext context, String msg) {
-    Scaffold.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text("$msg"),
-        ),
-      );
   }
 
   Widget _createNewsForm() {
@@ -130,10 +131,25 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                     child: Text("Guardar"),
                     onPressed: () {
                       setState(() {
+                        //TODO cambiar
                         _loading = !_loading;
                       });
-                      widget.misNoticiasBloc
-                          .add(SubirImagenEvent(file: _choosenImage));
+                      String title = _titleController.text;
+                      String author = _authorController.text;
+                      String description = _descriptionController.text;
+
+                      if (title == "") {
+                        _showSnackbar(context, "Falta título");
+                      } else if (author == "") {
+                        _showSnackbar(context, "Falta autor");
+                      } else if (description == "") {
+                        _showSnackbar(context, "Falta descripción");
+                      } else if (_choosenImage == null) {
+                        _showSnackbar(context, "Falta imagen");
+                      } else {
+                        widget.misNoticiasBloc
+                            .add(SubirImagenEvent(file: _choosenImage));
+                      }
                     },
                   ),
                 )
@@ -143,5 +159,15 @@ class _CrearNoticiaState extends State<CrearNoticia> {
         ),
       ),
     );
+  }
+
+  void _showSnackbar(BuildContext context, String msg) {
+    Scaffold.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text("$msg"),
+        ),
+      );
   }
 }
