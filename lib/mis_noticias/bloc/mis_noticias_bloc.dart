@@ -43,6 +43,7 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
       }
     } else if (event is CargarImagenEvent) {
       _choosenImage = await _chooseImage(event.takePictureFromCamera);
+      _uploadPicture(_choosenImage);
       yield ImagenCargadaState(imagen: _choosenImage);
     }
   }
@@ -53,7 +54,7 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
     // referencia al storage de firebase
     StorageReference reference = FirebaseStorage.instance
         .ref()
-        .child("noticias/${Path.basename(imagePath)}");
+        .child("noticias/imagenes/${Path.basename(imagePath)}");
 
     // subir el archivo a firebase
     StorageUploadTask uploadTask = reference.putFile(image);

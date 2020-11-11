@@ -37,13 +37,13 @@ class _CrearNoticiaState extends State<CrearNoticia> {
             }
           },
           builder: (context, state) {
-            // if (state is ChosenImageLoaded) {
-            //   _choosenImage = state.imgPath;
-            // }
             // if (state is FileUploaded) {
             //   _url = state.fileUrl;
             //   _saveData();
             // }
+            if (state is ImagenCargadaState) {
+              _choosenImage = state.imagen;
+            }
             return _createNewsForm();
           },
         ),
@@ -68,28 +68,6 @@ class _CrearNoticiaState extends State<CrearNoticia> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // _choosenImage != null
-            //     ? Image.file(
-            //         _choosenImage,
-            //         width: 150,
-            //         height: 150,
-            //       )
-            //     : Container(
-            //         height: 150,
-            //         width: 150,
-            //         child: Placeholder(
-            //           fallbackHeight: 150,
-            //           fallbackWidth: 150,
-            //         ),
-            //       ),
-            // SizedBox(height: 48),
-            // IconButton(
-            //   icon: Icon(Icons.image),
-            //   onPressed: () {
-            //     widget.misNoticiasBloc
-            //         .add(CargarImagenEvent(takePictureFromCamera: true));
-            //   },
-            // ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               child: _choosenImage != null
