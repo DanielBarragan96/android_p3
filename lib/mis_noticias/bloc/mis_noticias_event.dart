@@ -24,7 +24,7 @@ class CrearNoticiaEvent extends MisNoticiasEvent {
   List<Object> get props => [title, description, autor, fuente];
 }
 
-class LeerNoticiasEvent extends MisNoticiasEvent {
+class LeerMisNoticiasEvent extends MisNoticiasEvent {
   @override
   List<Object> get props => [];
 }
@@ -35,4 +35,12 @@ class CargarImagenEvent extends MisNoticiasEvent {
   CargarImagenEvent({@required this.takePictureFromCamera});
   @override
   List<Object> get props => [takePictureFromCamera];
+}
+
+class SubirImagenEvent extends MisNoticiasEvent {
+  final File file;
+
+  SubirImagenEvent({@required this.file});
+  @override
+  List<Object> get props => [file];
 }

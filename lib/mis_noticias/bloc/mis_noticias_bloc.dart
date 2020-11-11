@@ -33,13 +33,13 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
           event.fuente,
           imageUrl,
         );
-        yield NoticiasCreadaState();
+        yield MisNoticiasCreadaState();
       } catch (e) {}
-    } else if (event is LeerNoticiasEvent) {
+    } else if (event is LeerMisNoticiasEvent) {
       try {
         await _getAllNoticias();
       } catch (e) {
-        yield NoticiasErrorState(errorMsg: "No se pudo cargar noticia: $e");
+        yield MisNoticiasErrorState(errorMsg: "No se pudo cargar noticia: $e");
       }
     } else if (event is CargarImagenEvent) {
       _choosenImage = await _chooseImage(event.takePictureFromCamera);

@@ -11,13 +11,13 @@ class MisNoticiasInitial extends MisNoticiasState {}
 
 class NoticiasDescargadasState extends MisNoticiasState {}
 
-class NoticiasErrorState extends MisNoticiasState {
+class MisNoticiasErrorState extends MisNoticiasState {
   final String errorMsg;
 
-  NoticiasErrorState({@required this.errorMsg});
+  MisNoticiasErrorState({@required this.errorMsg});
 }
 
-class NoticiasCreadaState extends MisNoticiasState {}
+class MisNoticiasCreadaState extends MisNoticiasState {}
 
 class ImagenCargadaState extends MisNoticiasState {
   final File imagen;
