@@ -33,7 +33,7 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
           event.source,
           event.imageUrl,
         );
-        yield MisNoticiasCreadaState();
+        yield MisNoticiasCreadaState(uploaded: true);
       } catch (e) {}
     } else if (event is LeerMisNoticiasEvent) {
       try {

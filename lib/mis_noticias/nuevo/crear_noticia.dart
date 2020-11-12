@@ -54,6 +54,12 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                   imageUrl: state.urlImagen,
                 ),
               );
+            } else if (state is MisNoticiasCreadaState) {
+              _loading = false;
+              if (state.uploaded)
+                _clearNoticiasWidget();
+              else
+                _showSnackbar(context, "No se pudo crear la noticia");
             }
             return _createNewsForm();
           },
@@ -131,8 +137,7 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                     child: Text("Guardar"),
                     onPressed: () {
                       setState(() {
-                        //TODO cambiar
-                        _loading = !_loading;
+                        _loading = true;
                       });
                       String title = _titleController.text;
                       String author = _authorController.text;
@@ -169,5 +174,9 @@ class _CrearNoticiaState extends State<CrearNoticia> {
           content: Text("$msg"),
         ),
       );
+  }
+
+  void _clearNoticiasWidget() {
+    //TODO borrar campos de crear noticia
   }
 }

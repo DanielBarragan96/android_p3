@@ -17,7 +17,11 @@ class MisNoticiasErrorState extends MisNoticiasState {
   MisNoticiasErrorState({@required this.errorMsg});
 }
 
-class MisNoticiasCreadaState extends MisNoticiasState {}
+class MisNoticiasCreadaState extends MisNoticiasState {
+  final bool uploaded;
+
+  MisNoticiasCreadaState({@required this.uploaded});
+}
 
 class ImagenCargadaState extends MisNoticiasState {
   final File imagen;
