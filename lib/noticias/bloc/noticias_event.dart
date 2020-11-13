@@ -8,3 +8,9 @@ abstract class NoticiasEvent extends Equatable {
 }
 
 class GetNewsEvent extends NoticiasEvent {}
+
+class SearchNewsEvent extends NoticiasEvent {
+  final String search;
+
+  SearchNewsEvent({@required this.search});
+}

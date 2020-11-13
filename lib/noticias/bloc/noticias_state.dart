@@ -24,3 +24,11 @@ class NoticiasErrorState extends NoticiasState {
 
   NoticiasErrorState({@required this.message});
 }
+
+class SearchSuccessState extends NoticiasState {
+  final List<Noticia> searchList;
+
+  SearchSuccessState({@required this.searchList});
+  @override
+  List<Object> get props => [searchList];
+}
