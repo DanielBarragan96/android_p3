@@ -16,11 +16,16 @@ class ItemNoticia extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: Image.network(
-                  "${noticia.urlToImage}",
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
+                child: (noticia.urlToImage != "" && noticia.urlToImage != null)
+                    ? Image.network(
+                        "${noticia.urlToImage}",
+                        height: 100,
+                        fit: BoxFit.cover,
+                      )
+                    : Placeholder(
+                        fallbackHeight: 100,
+                        fallbackWidth: 10,
+                      ),
               ),
               Expanded(
                 flex: 3,
