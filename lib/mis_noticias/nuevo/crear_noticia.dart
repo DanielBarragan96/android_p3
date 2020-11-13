@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noticias/mis_noticias/bloc/mis_noticias_bloc.dart';
 
 class CrearNoticia extends StatefulWidget {
-  final MisNoticiasBloc misNoticiasBloc;
-  CrearNoticia({Key key, @required this.misNoticiasBloc}) : super(key: key);
+  final MisNoticiasBloc misNoticiasBloc = MisNoticiasBloc();
+  CrearNoticia({Key key}) : super(key: key);
 
   @override
   _CrearNoticiaState createState() => _CrearNoticiaState();
@@ -56,10 +56,7 @@ class _CrearNoticiaState extends State<CrearNoticia> {
               );
             } else if (state is MisNoticiasCreadaState) {
               _loading = false;
-              if (state.uploaded)
-                _clearNoticiasWidget();
-              else
-                _showSnackbar(context, "No se pudo crear la noticia");
+              if (state.uploaded) _clearNoticiasWidget();
             }
             return _createNewsForm();
           },
@@ -136,9 +133,6 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                   child: RaisedButton(
                     child: Text("Guardar"),
                     onPressed: () {
-                      setState(() {
-                        _loading = true;
-                      });
                       String title = _titleController.text;
                       String author = _authorController.text;
                       String description = _descriptionController.text;
@@ -154,7 +148,9 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                       } else {
                         widget.misNoticiasBloc
                             .add(SubirImagenEvent(file: _choosenImage));
+                        _loading = true;
                       }
+                      setState(() {});
                     },
                   ),
                 )

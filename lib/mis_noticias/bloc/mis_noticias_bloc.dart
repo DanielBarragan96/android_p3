@@ -38,6 +38,7 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
     } else if (event is LeerMisNoticiasEvent) {
       try {
         await _getAllNoticias();
+        yield MisNoticiasMostrarState(noticiasList: _noticiasList);
       } catch (e) {
         yield MisNoticiasErrorState(errorMsg: "No se pudo cargar noticia: $e");
       }
@@ -92,9 +93,9 @@ class MisNoticiasBloc extends Bloc<MisNoticiasEvent, MisNoticiasState> {
             title: elemento["title"],
             description: elemento["description"],
             author: elemento["author"],
-            source: elemento["source"],
             urlToImage: elemento["urlToImage"],
             publishedAt: elemento["publishedAt"],
+            // source: elemento["source"],
           ),
         )
         .toList();

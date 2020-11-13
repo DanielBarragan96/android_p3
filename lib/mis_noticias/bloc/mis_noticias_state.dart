@@ -34,3 +34,9 @@ class SubirNoticiaState extends MisNoticiasState {
 
   SubirNoticiaState({@required this.urlImagen});
 }
+
+class MisNoticiasMostrarState extends MisNoticiasState {
+  final List<Noticia> noticiasList;
+
+  MisNoticiasMostrarState({@required this.noticiasList});
+}

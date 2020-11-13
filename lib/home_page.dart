@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:noticias/buscar/buscar.dart';
-import 'package:noticias/mis_noticias/bloc/mis_noticias_bloc.dart';
 import 'package:noticias/noticias/noticias.dart';
 
 import 'mis_noticias/creadas/mis_noticias.dart';
@@ -15,19 +14,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
-  MisNoticiasBloc _misNoticiasBloc;
   List<Widget> _pagesList;
 
   @override
   void initState() {
-    _misNoticiasBloc = MisNoticiasBloc();
     _pagesList = [
       Noticias(),
       Buscar(),
       MisNoticias(),
-      CrearNoticia(
-        misNoticiasBloc: _misNoticiasBloc,
-      ),
+      CrearNoticia(),
     ];
     super.initState();
   }
