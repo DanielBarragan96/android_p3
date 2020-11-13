@@ -21,7 +21,7 @@ class _BuscarState extends State<Buscar> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Mis noticias'),
+          title: Text('Buscar noticias'),
         ),
         body: BlocProvider(
           create: (context) => bloc..add(SearchNewsEvent(search: "")),
