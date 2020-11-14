@@ -26,7 +26,6 @@ class LoginErrorState extends LoginState {
   final String error;
   final String code;
 
-  // TODO: define and use codes
   LoginErrorState({@required this.error, this.code = "to be defined code"});
 
   @override

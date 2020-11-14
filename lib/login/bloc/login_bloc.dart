@@ -40,11 +40,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
     } else if (event is LoginWithFacebookEvent) {
-      // TODO: facebook login
     } else if (event is LoginWithEmailEvent) {
-      // TODO: email login
-    } else if (event is ForgotPasswordEvent) {
-      // TODO: reset password workflow
-    }
+    } else if (event is ForgotPasswordEvent) {}
   }
 }

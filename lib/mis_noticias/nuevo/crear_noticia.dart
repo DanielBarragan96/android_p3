@@ -6,12 +6,12 @@ import 'package:noticias/mis_noticias/bloc/mis_noticias_bloc.dart';
 
 class CrearNoticia extends StatefulWidget {
   final MisNoticiasBloc misNoticiasBloc = MisNoticiasBloc();
+
   CrearNoticia({Key key}) : super(key: key);
 
   @override
   _CrearNoticiaState createState() => _CrearNoticiaState();
 }
-// TODO: Formulario para crear noticias
 // tomar fotos de camara o de galeria
 
 TextEditingController _authorController = TextEditingController();
@@ -173,6 +173,10 @@ class _CrearNoticiaState extends State<CrearNoticia> {
   }
 
   void _clearNoticiasWidget() {
-    //TODO borrar campos de crear noticia
+    _authorController.text = "";
+    _titleController.text = "";
+    _descriptionController.text = "";
+    _choosenImage = null;
+    _loading = false;
   }
 }
