@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noticias/mis_noticias/bloc/mis_noticias_bloc.dart';
+import 'package:noticias/models/noticia.dart';
 import 'package:noticias/noticias/item_noticia.dart';
 
 class MisNoticias extends StatelessWidget {
-  final MisNoticiasBloc misNoticiasBloc = MisNoticiasBloc();
+  MisNoticiasBloc misNoticiasBloc = MisNoticiasBloc();
 
   MisNoticias({Key key}) : super(key: key);
 
@@ -24,7 +25,7 @@ class MisNoticias extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is MisNoticiasMostrarState) {
-                return getMisNoticias(state);
+                return getMisNoticias(state.noticiasList);
               } else
                 return Center(
                   child: Text("No hay noticias disponibles"),
@@ -36,12 +37,18 @@ class MisNoticias extends StatelessWidget {
     );
   }
 
-  Widget getMisNoticias(MisNoticiasMostrarState state) {
-    return ListView.builder(
-      itemCount: state.noticiasList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ItemNoticia(noticia: state.noticiasList[index]);
+  Widget getMisNoticias(List<Noticia> noticiasList) {
+    return RefreshIndicator(
+      onRefresh: () {
+        misNoticiasBloc..add(LeerMisNoticiasEvent());
+        return Future.delayed(Duration(seconds: 1));
       },
+      child: ListView.builder(
+        itemCount: noticiasList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ItemNoticia(noticia: noticiasList[index]);
+        },
+      ),
     );
   }
 }
